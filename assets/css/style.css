@@ -1,0 +1,251 @@
+:root{
+  --bg:#0F1724;
+  --card:#e6eef8;
+  --accent:#60a5fa;
+  --select: #8baa2e;
+  --muted:#9aa7b2;
+  --glass: rgba(255,255,255,0.06);
+  --radius:12px;
+  --gap:12px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+* {
+    box-sizing:border-box;
+}
+html,body,#board {
+    height:100%;
+    font-size:16px;
+    line-height:1.5;
+    font-weight:400;
+    font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  margin:0; 
+  background:linear-gradient(180deg,#081127 0%, #0f1724 100%); 
+  color:#fff;
+  -webkit-font-smoothing:antialiased; 
+  -moz-osx-font-smoothing:grayscale;
+  padding:18px;
+}
+
+.app {
+  max-width:1100px; 
+  margin:0 auto;
+  display:grid; 
+  grid-template-columns: 1fr; 
+  gap:18px;
+}
+
+/* header */
+
+.toolbar {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.toolbar h1 {
+    margin:0;
+    font-size:1.25rem;
+    letter-spacing:0.5px;
+}
+
+.controls {
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.controls select, .controls button {
+    padding:8px 10px;
+    border-radius:8px;
+    border:0;
+    background:var(--glass);
+    /* color:var(--card); */
+    color:var(--select);
+}
+
+/* status */
+.status {
+    display:flex;
+    gap:14px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.stat {
+    background:rgba(255,255,255,0.03);
+    padding:8px 12px;
+    border-radius:10px;
+    color:var(--muted);
+}
+
+/* board grid - mobile first: 3 cols up to 6+ for larger */
+.board {
+  display:grid; 
+  gap:var(--gap);
+  justify-items:center;
+  align-items:center;
+  margin-top:6px;
+}
+
+/* card */
+.card {
+  width:100%; 
+  max-width:110px; 
+  aspect-ratio: 2 / 3;
+  border-radius:10px; 
+  perspective:1000px; 
+  cursor:pointer;
+}
+
+.card-inner {
+  width:100%; 
+  height:100%; 
+  position:relative; 
+  transform-style:preserve-3d; 
+  transition:transform .45s;
+}
+
+.card.flipped .card-inner { 
+    transform: rotateY(180deg);
+    cursor:default;
+}
+
+.card-face {
+  position:absolute; 
+  inset:0; 
+  backface-visibility:hidden;
+  display:flex; 
+  align-items:center; 
+  justify-content:center;
+  border-radius:10px; 
+  font-weight:700;
+}
+
+/* front = back of card */
+.card-front{
+  background:linear-gradient(180deg,#1f2937,#111827); 
+  color:var(--card);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  font-size:1.25rem;
+}
+
+/* back = revealed */
+.card-back {
+  background:linear-gradient(180deg,var(--card),#e0e7ff);
+  color:#0b1220;
+  transform: rotateY(180deg);
+  font-size:1rem;
+}
+
+.end-modal {
+    width: 100%;
+  position:fixed; 
+  inset:0; 
+  display:grid; 
+  place-items:center; 
+  background: rgba(2,6,23,0.6);
+}
+
+.hidden {
+    display:none;
+}
+
+.end-card {
+    background:linear-gradient(180deg,#0b1220,#111827); 
+    padding:18px; 
+    border-radius:14px; 
+    width:320px;
+}
+.end-card h2 {
+    margin-top:0;
+    margin-bottom:8px;
+    font-size:1.5rem;
+    letter-spacing:0.5px;
+    text-align:center
+}
+
+.end-card label {
+    display:block;
+    margin:8px 0;
+    font-size:0.875rem;
+    color:var(--muted);
+    text-align:center
+}
+.end-card input {
+    width:100%;
+    padding:8px;
+    border-radius:8px;
+    border:0
+}
+
+.actions {
+    display:flex;
+    gap:8px; 
+    margin-top:8px;
+}
+
+.actions button {
+    flex:1;
+    padding:10px;
+    border-radius:8px;
+    border:0;
+    background:var(--accent);
+    color:#012;
+    background-image:none;
+}
+
+.save-msg{
+    margin-top:8px;
+    color:var(--muted);
+}
+
+/* leaderboard */
+.leaderboard {
+    
+    position:fixed; 
+    right:18px; 
+    top:18px; 
+    width:220px; 
+    background:rgba(255,255,255,0.04); 
+    padding:12px;
+    border-radius:10px;
+    font-size:0.875rem;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    backdrop-filter: blur(10px);
+    display:none;
+    z-index:10;
+}
+.leaderboard h3 {    
+    margin:0 0 8px 0;
+    font-size:1rem;
+    text-align:center;
+    letter-spacing:0.5px;
+}
+
+.leaderboard ol {    
+    margin:0;
+    padding-left:18px;
+    color:var(--muted);
+    list-style-type:decimal;
+    max-height:300px;
+    overflow-y:auto;
+}
+
+@media(min-width:640px) {
+  .app{
+    grid-template-columns: 1fr 300px; 
+    gap:18px;
+}
+  .board {
+    grid-template-columns: repeat(4, 1fr); 
+}
+}
+@media(min-width:880px) {
+  .board {
+    grid-template-columns: repeat(6, 1fr);
+}
+}
